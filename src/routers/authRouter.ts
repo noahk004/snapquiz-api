@@ -28,7 +28,18 @@ authRouter.post("/login", async (req, res) => {
 
 // Logout route
 authRouter.post("/logout", (req, res) => {
-  res.clearCookie("token").json({ message: "Logged out" });
+  res
+    .clearCookie("token", {
+      httpOnly: true,
+      secure: true,
+      sameSite: "none",
+      domain:
+        process.env.ENVIRONMENT === "production"
+          ? ".snapquiz.xyz"
+          : "localhost",
+      path: "/",
+    })
+    .json({ message: "Logged out" });
 });
 
 // Create a new user
