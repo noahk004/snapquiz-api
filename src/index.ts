@@ -20,19 +20,12 @@ const app = express();
 // Configure CORS based on environment
 const allowedOrigins =
   process.env.ENVIRONMENT === "production"
-    ? ["https://snapquiz.xyz", "https://www.snapquiz.xyz"] // Production domains
-    : ["http://localhost:3000"]; // Development
+    ? /^https:\/\/(www\.)?snapquiz\.xyz$/ // Production domains
+    : "http://localhost:3000"; // Development
 
 app.use(
   cors({
-    origin: function (origin, callback) {
-      if (!origin || allowedOrigins.indexOf(origin) === -1) {
-        const msg =
-          "The CORS policy for this site does not allow access from the specified Origin.";
-        return callback(new Error(msg), false);
-      }
-      return callback(null, true);
-    },
+    origin: allowedOrigins,
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization"],
     credentials: true,
