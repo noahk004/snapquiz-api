@@ -18,6 +18,7 @@ authRouter.post("/login", async (req, res) => {
     httpOnly: true,
     secure: true,
     sameSite: "none",
+    domain: ".snapquiz.xyz",
     maxAge: 1000 * 60 * 60 * 24 * 30, // 30 days
   });
 
@@ -28,7 +29,6 @@ authRouter.post("/login", async (req, res) => {
 authRouter.post("/logout", (req, res) => {
   res.clearCookie("token").json({ message: "Logged out" });
 });
-
 
 // Create a new user
 authRouter.post("/register", async (req, res) => {
