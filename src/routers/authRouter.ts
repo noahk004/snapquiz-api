@@ -19,7 +19,7 @@ authRouter.post("/login", async (req, res) => {
     secure: true,
     sameSite: "none",
     domain:
-      process.env.ENVIRONMENT === "production" ? "api.snapquiz.xyz" : "localhost",
+      process.env.ENVIRONMENT === "production" ? ".snapquiz.xyz" : "localhost",
     maxAge: 1000 * 60 * 60 * 24 * 30, // 30 days
   });
 
