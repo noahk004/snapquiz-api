@@ -38,6 +38,8 @@ authRouter.post("/logout", (req, res) => {
           ? ".snapquiz.xyz"
           : "localhost",
       path: "/",
+      maxAge: 0, // Immediately expire the cookie
+      expires: new Date(0), // Set expiration to the past
     })
     .json({ message: "Logged out" });
 });
