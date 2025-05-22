@@ -20,8 +20,8 @@ const app = express();
 // Configure CORS based on environment
 const corsOrigin =
   process.env.ENVIRONMENT === "production"
-    ? "https://snapquiz.xyz" // Production domain
-    : "http://localhost:3000"; // Development
+    ? ["https://snapquiz.xyz", "https://www.snapquiz.xyz"] // Production domain
+    : ["http://localhost:3000"]; // Development
 
 app.use(
   cors({
