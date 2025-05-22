@@ -19,7 +19,7 @@ const app = express();
 
 // Configure CORS based on environment
 const corsOrigin =
-  process.env.NODE_ENV === "production"
+  process.env.ENVIRONMENT === "production"
     ? "https://snapquiz.xyz" // Production domain
     : "http://localhost:3000"; // Development
 
