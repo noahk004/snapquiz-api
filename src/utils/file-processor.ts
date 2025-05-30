@@ -18,7 +18,10 @@ function escapeString(str: string): string {
  * Detects file type by extension and extracts raw text accordingly.
  * Accepts file buffer instead of file path.
  */
-async function extractTextFromBuffer(buffer: Buffer, originalName: string): Promise<string> {
+async function extractTextFromBuffer(
+  buffer: Buffer,
+  originalName: string
+): Promise<string> {
   const ext = path.extname(originalName).toLowerCase();
 
   switch (ext) {
@@ -45,8 +48,22 @@ async function extractTextFromBuffer(buffer: Buffer, originalName: string): Prom
 /**
  * Main function: extract from buffer, escape, and return string
  */
-export async function convertBufferToEscapedText(fileBuffer: Buffer, originalName: string): Promise<string> {
+export async function convertBufferToEscapedText(
+  fileBuffer: Buffer,
+  originalName: string
+): Promise<string> {
   try {
+    // Check file size (10MB = 10 * 1024 * 1024 bytes)
+    const MAX_FILE_SIZE = 10 * 1024 * 1024;
+    if (fileBuffer.length > MAX_FILE_SIZE) {
+      throw new Error(
+        `File size exceeds maximum limit of 10MB. Current size: ${(
+          fileBuffer.length /
+          (1024 * 1024)
+        ).toFixed(2)}MB`
+      );
+    }
+
     const rawText = await extractTextFromBuffer(fileBuffer, originalName);
     const escapedText = escapeString(rawText);
     return escapedText;

@@ -58,9 +58,9 @@ testRouter.post(
       const user = req.user! as UserPayload;
       const testId = await TestModel.generateTest(testData, user.id);
 
-      res.json({ testId });
+      res.status(201).json({ success: true, testId });
     } catch (err) {
-      res.status(500).send("Failed to process file.");
+      res.status(500).json({ success: false, error: "Failed to process file." });
     }
   }
 );
