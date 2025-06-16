@@ -10,6 +10,7 @@ import authRouter from "./routers/authRouter";
 import userRouter from "./routers/userRouter";
 import testRouter from "./routers/testRouter";
 import attemptRouter from "./routers/attemptRouter";
+import stropRouter from "./routers/stropRouter";
 
 import { requireAuth } from "./middleware/requireAuth";
 
@@ -34,6 +35,8 @@ app.use(
 
 app.use(cookieParser());
 app.use(express.json());
+
+app.use("/strop/api", stropRouter);
 
 app.use("/api/auth", authRouter);
 app.use("/api/users", requireAuth, userRouter);
